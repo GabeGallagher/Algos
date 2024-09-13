@@ -11,6 +11,7 @@ class Sort {
       }
       sorted += 1;
     }
+    return array;
   }
 }
 
