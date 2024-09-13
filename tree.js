@@ -53,7 +53,7 @@ class BinaryTree {
   }
 
   buildMinHeap(array) {
-    let sorter = new Sort(array);
+    let sorter = new Sort();
     this.buildTree(sorter.merge(array));
   }
 
