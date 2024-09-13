@@ -4,7 +4,7 @@ const Sort = require("./sorting");
 
 let a = createArray(10, -100, 100);
 // let search = new BinSearch();
-// let a = [18, -82, -66, -88, -83, 26, 67, -59, -63, 9];
+// let a = [-23,-59,-43,78,77,-75,-16,-58,25,-61];
 
 console.log(a.toString());
 let sorter = new Sort();
