@@ -48,7 +48,7 @@ class BinaryTree {
 
   buildMaxHeap(array) {
     let sorter = new Sort();
-    let tempArray = sorter.bubble();
+    let tempArray = sorter.bubble(array);
     let maxArray = [];
     for (let i = tempArray.length; i > 0; i--) {
       maxArray.push(tempArray[i]);
@@ -57,7 +57,7 @@ class BinaryTree {
   }
 
   buildMinHeap(array) {
-    let sorter = new Sort();
+    let sorter = new Sort(array);
     this.buildTree(sorter.bubble());
   }
 
