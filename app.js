@@ -1,11 +1,16 @@
-const { createArray, TreeNode, buildBST } = require("./BinarySearchTree");
+const BinaryTree = require("./tree");
 const BinSearch = require("./binSearch");
 const Sort = require("./sorting");
 
-// let a = createArray(10, -100, 100);
-let search = new BinSearch();
-let a = [-23, -59, -43, 78, 77, -75, -16, -58, 25, -61];
-let sort = new Sort();
-a = sort.bubble(a);
+function createArray(n, lb, ub) {
+  let out = [];
+  for (let i = 0; i < n; i++) {
+    out.push(Math.floor(Math.random() * (ub - lb + 1)) + lb);
+  }
+  return out;
+}
 
-console.log(search.search(a, 77));
+// let a = createArray(10, -100, 100);
+let a = [2, 8, 5, 6, 9, 1, 7, 4];
+let tree = new BinaryTree();
+tree.buildTree(a);
