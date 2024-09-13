@@ -11,6 +11,6 @@ function createArray(n, lb, ub) {
 }
 
 // let a = createArray(10, -100, 100);
-let a = [2, 8, 5, 3, 9, 1];
-let tree = new BinaryTree();
-tree.buildTree(a);
+let a = [2, 8, 5, 3, 9, 4, 1, 7];
+let sorting = new Sort();
+console.log(sorting.merge(a).toString());

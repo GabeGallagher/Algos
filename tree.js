@@ -7,10 +7,6 @@ class TreeNode {
     this.right = null;
   }
 
-  setVal(val) {
-    this.val = val;
-  }
-
   setLeft(treeNode) {
     this.left = treeNode;
   }
