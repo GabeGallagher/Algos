@@ -1,3 +1,5 @@
+const Sort = require("./sorting");
+
 class TreeNode {
   constructor(val) {
     this.val = val;
@@ -42,6 +44,21 @@ class BinaryTree {
     } else if (currentNode.left.isFull() && !currentNode.right.isFull()) {
       this.insertTreeNode(currentNode.right, array, i);
     } else this.insertTreeNode(currentNode.left, array, i);
+  }
+
+  buildMaxHeap(array) {
+    let sorter = new Sort();
+    let tempArray = sorter.bubble();
+    let maxArray = [];
+    for (let i = tempArray.length; i > 0; i--) {
+      maxArray.push(tempArray[i]);
+    }
+    this.buildTree(maxArray);
+  }
+
+  buildMinHeap(array) {
+    let sorter = new Sort();
+    this.buildTree(sorter.bubble());
   }
 
   buildBST(array) {

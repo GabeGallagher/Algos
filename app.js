@@ -11,6 +11,6 @@ function createArray(n, lb, ub) {
 }
 
 // let a = createArray(10, -100, 100);
-let a = [2, 8, 5, 6, 9, 1, 7, 4];
+let a = [2, 8, 5, 3, 9, 1];
 let tree = new BinaryTree();
 tree.buildTree(a);
