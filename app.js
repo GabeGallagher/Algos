@@ -11,6 +11,6 @@ function createArray(n, lb, ub) {
 }
 
 // let a = createArray(10, -100, 100);
-let a = [2, 8, 5, 3, 9, 4, 1, 7];
+let a = [2, 6, 5, 3, 8, 7, 1, 0];
 let sorting = new Sort();
-console.log(sorting.merge(a).toString());
+console.log(sorting.quick(a).toString());

@@ -55,6 +55,44 @@ class Sort {
     }
     return output;
   }
+
+  quick(array, front, back) {
+    if (front === undefined) {
+      front = 0;
+      back = array.length - 1;
+    }
+    if (front < back) {
+      let pivot = this.partition(array, front, back);
+      this.quick(array, front, pivot - 1);
+      this.quick(array, pivot + 1, back);
+    }
+    return array;
+  }
+
+  partition(array, front, back) {
+    let end = back;
+    let pivotIndex = Math.floor((front + back) / 2);
+    let pivotVal = array[pivotIndex];
+    let temp = array[end];
+    array[end] = array[pivotIndex];
+    array[pivotIndex] = temp;
+    back--;
+    
+    while (front <= back) {
+      if (array[front] > pivotVal && array[back] < pivotVal) {
+        temp = array[back];
+        array[back] = array[front];
+        array[front] = temp;
+      }
+      if (array[front] < pivotVal) front++;
+      if (array[back] > pivotVal) back--;
+    }
+
+    temp = array[front];
+    array[front] = pivotVal;
+    array[end] = temp;
+    return front;
+  }
 }
 
 module.exports = Sort;
