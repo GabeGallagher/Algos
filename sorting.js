@@ -1,4 +1,4 @@
-class Sort {
+export default class Sort {
   bubble(array) {
     let sorted = 0;
     while (array.length > sorted) {
@@ -15,7 +15,7 @@ class Sort {
   }
 
   merge(array) {
-    if (array.length === 1) return array;
+    if (array.length <= 1) return array;
     else {
       let pivot = Math.floor(array.length / 2);
       let left = array.slice(0, pivot);
@@ -36,14 +36,14 @@ class Sort {
       if (arrayOne[i] < arrayTwo[j]) {
         output.push(arrayOne[i]);
         i++;
-      } else if (arrayOne[i] > arrayTwo[j]) {
+      } else if (arrayOne[i] >= arrayTwo[j]) {
         output.push(arrayTwo[j]);
         j++;
       }
     }
     if (i < j) {
       output = this.finishArray(i, arrayOne, output);
-    } else if (i > j) {
+    } else if (i >= j) {
       output = this.finishArray(j, arrayTwo, output);
     }
     return output;
@@ -84,8 +84,8 @@ class Sort {
         array[back] = array[front];
         array[front] = temp;
       }
-      if (array[front] < pivotVal) front++;
-      if (array[back] > pivotVal) back--;
+      if (array[front] <= pivotVal) front++;
+      if (array[back] >= pivotVal) back--;
     }
 
     temp = array[front];
@@ -94,5 +94,3 @@ class Sort {
     return front;
   }
 }
-
-module.exports = Sort;

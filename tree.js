@@ -1,4 +1,4 @@
-const Sort = require("./sorting");
+import Sort from "./sorting.js";
 
 class TreeNode {
   constructor(val) {
@@ -24,7 +24,7 @@ class TreeNode {
   }
 }
 
-class BinaryTree {
+export default class BinaryTree {
   buildTree(array) {
     let root = new TreeNode(array[0]);
     for (let i = 1; i < array.length; i++) {
@@ -75,5 +75,3 @@ class BinaryTree {
     }
   }
 }
-
-module.exports = BinaryTree;

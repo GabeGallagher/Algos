@@ -1,4 +1,4 @@
-class BinSearch {
+export default class BinSearch {
   search(nums, target) {
     let lb = 0;
     let ub = nums.length - 1;
@@ -10,5 +10,3 @@ class BinSearch {
     }
   }
 }
-
-module.exports = BinSearch;
