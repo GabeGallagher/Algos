@@ -1,0 +1,85 @@
+export default class App {
+  containsDuplicate(nums) {
+    let numsMap = new Map();
+    for (let i = 0; i < nums.length; i++) {
+      if (numsMap.has(nums[i])) return true;
+      else numsMap.set(nums[i], 1);
+    }
+    return false;
+  }
+
+  isAnagram(s, t) {
+    if(s.length !== t.length) return false;
+    else if(s.length < 1) return false;
+    
+    let sMap = new Map();
+    let tMap = new Map();
+    
+    for (let i = 0; i < s.length; i++) {
+      if(sMap.has(s[i])) sMap.set(s[i], sMap.get(s[i]) + 1);
+      else sMap.set(s[i], 1);
+      if(tMap.has(t[i])) tMap.set(t[i], tMap.get(t[i]) + 1);
+      else tMap.set(t[i], 1);
+    }
+    for (let key of sMap.keys()) {
+      if (!tMap.has(key)) return false;
+      if (sMap.get(key) !== tMap.get(key)) return false;
+    }
+    return true;
+  }
+
+  topKFrequent(nums, k) {
+    let output = [];
+    let numsMap = new Map();
+    for (let i = 0; i < nums.length; i++) {
+      if (numsMap.has(nums[i]))
+        numsMap.set(nums[i], numsMap.get(nums[i]) + 1);
+      else
+        numsMap.set(nums[i], 1);
+    }
+    for (let key of numsMap.keys()) {
+      if (output.length < k) output.push(key);
+      else {
+        let val = key;
+        for (let i = 0; i < output.length; i++) {
+          if (numsMap.get(val) > numsMap.get(output[i])) {
+            let temp = output[i];
+            output[i] = val;
+            val = temp;
+          }
+        }
+      }
+    }
+    return output;
+  }
+
+  isValidParentheses(s) {
+    if (s.length < 2 || (s.length % 2) !== 0) return false;
+    let parenMap = [')', ']', '}']
+    let stack = []
+    for (let i = 0; i < s.length; i++) {
+      if (parenMap.includes(s[i])) {
+        let check = stack.pop();
+          switch (check) {
+            case '(':
+              if (s[i] !== ')') return false;
+              break;
+            case '[':
+              if (s[i] !== ']') return false;
+              break;
+            case '{':
+              if (s[i] !== '}') return false;
+              break;
+            default:
+              return false;
+          }
+      } else {
+        stack.push(s[i]);
+      }
+    }
+    if (stack.length !== 0) return false;
+    return true;
+  }
+}
+let app = new App();
+console.log(app.isValidParentheses("))"));
