@@ -80,6 +80,16 @@ export default class App {
     if (stack.length !== 0) return false;
     return true;
   }
+
+  twoSum(numbers, target) {
+    let front = 0;
+    let back = numbers.length - 1;
+    while (numbers[front] + numbers[back] !== target) {
+      if (numbers[front] + numbers[back] < target) front++;
+      else if (numbers[front] + numbers[back] > target) back--;
+    }
+    return[front, back];
+  }
 }
 let app = new App();
-console.log(app.isValidParentheses("))"));
+console.log(app.twoSum([-5,-3,0,2,4,6,8], 5));
