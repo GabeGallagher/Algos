@@ -1,5 +1,5 @@
 export default class BinSearch {
-  search(nums, target) {
+  binSearch(nums, target) {
     let lb = 0;
     let ub = nums.length - 1;
     while (lb < ub) {
