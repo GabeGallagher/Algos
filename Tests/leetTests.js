@@ -118,3 +118,21 @@ describe("Two sum", () => {
     expect(testBool).to.equal(true);
   });
 });
+
+describe("Max profit", () => {
+  let app = new App();
+
+  beforeEach(() => {
+    app = new App();
+  })
+
+  it("should return max profit", () => {
+    const profit = app.maxProfit([2,4,1]);
+    expect(profit).to.equal(2);
+  })
+
+  it("should return max profit 0 if there are no profits", () => {
+    const profit = app.maxProfit([7,6,4,3,1]);
+    expect(profit).to.equal(0);
+  })
+})
