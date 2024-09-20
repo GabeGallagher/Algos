@@ -30,5 +30,3 @@ export default class BinSearch {
     }
   }
 }
-let app = new BinSearch();
-console.log(app.matrixSearch([[1, 3]], 3));
