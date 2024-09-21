@@ -106,7 +106,20 @@ export default class App {
   }
 
   lengthOfLongestSubstring(s) {
-
+    let substring = new Map();
+    let out = 0;
+    for (let i = 0; i < s.length; i++) {
+      if (substring.has(s[i])) {
+        if (out < substring.size) out = substring.size;
+        let prevChar = s[i];
+        while (s[i - 1] !== prevChar) i--;
+        substring = new Map();
+        substring.set(s[i], 1);
+      } else substring.set(s[i], 1);
+    }
+    if (out < substring.size) out = substring.size;
+    return out;
   }
 }
-
+let app = new App();
+console.log(app.lengthOfLongestSubstring("pwwkew"));

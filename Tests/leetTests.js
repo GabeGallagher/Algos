@@ -124,15 +124,38 @@ describe("Max profit", () => {
 
   beforeEach(() => {
     app = new App();
-  })
+  });
 
   it("should return max profit", () => {
-    const profit = app.maxProfit([2,4,1]);
+    const profit = app.maxProfit([2, 4, 1]);
     expect(profit).to.equal(2);
-  })
+  });
 
   it("should return max profit 0 if there are no profits", () => {
-    const profit = app.maxProfit([7,6,4,3,1]);
+    const profit = app.maxProfit([7, 6, 4, 3, 1]);
     expect(profit).to.equal(0);
-  })
-})
+  });
+});
+
+describe("Length of longest substring", () => {
+  let app = new App();
+
+  beforeEach(() => {
+    app = new App();
+  });
+
+  it("should return length of longest substring without a repeating character", () => {
+    const length = app.lengthOfLongestSubstring("pwwkew");
+    expect(length).to.equal(3);
+  });
+
+  it("should return expected output while accounting for spaces as characters", () => {
+    const length = app.lengthOfLongestSubstring(" ");
+    expect(length).to.equal(1);
+  });
+
+  it("should return the proper substring length when the next substring doesn't start immediately after the repeated character", () => {
+    const length = app.lengthOfLongestSubstring("dvdf");
+    expect(length).to.equal(3);
+  });
+});
