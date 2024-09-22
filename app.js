@@ -1,3 +1,5 @@
+import SinglyLinkedList from "./linkedList.js";
+
 export default class App {
   containsDuplicate(nums) {
     let numsMap = new Map();
@@ -120,6 +122,21 @@ export default class App {
     if (out < substring.size) out = substring.size;
     return out;
   }
+
+  reverseList(array) {
+    let linkedList = new SinglyLinkedList(array);
+    let head = linkedList.head;
+    let currentNode = head;
+    let prev = null;
+
+    while (currentNode) {
+      let next = currentNode.next;
+      currentNode.next = prev;
+      prev = currentNode;
+      currentNode = next;
+    }
+    return prev;
+  }
 }
 let app = new App();
-console.log(app.lengthOfLongestSubstring("pwwkew"));
+console.log(app.reverseList([1, 2, 3, 4, 5]));
