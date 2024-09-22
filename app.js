@@ -137,6 +137,19 @@ export default class App {
     }
     return prev;
   }
+
+  reverseListRecursive(array) {
+    let linkedList = new SinglyLinkedList(array);
+    let head = linkedList.head;
+    return this.recursiveReverseList(head, null);
+  }
+
+  recursiveReverseList(currentNode, prev) {
+    if (!currentNode) return prev;
+    else {
+      let next = currentNode.next;
+      currentNode.next = prev;
+      return this.recursiveReverseList(next, currentNode);
+    }
+  }
 }
-let app = new App();
-console.log(app.reverseList([1, 2, 3, 4, 5]));
