@@ -7,26 +7,23 @@ class ListNode {
 
 export default class SinglyLinkedList {
   constructor(array) {
-    this.length = array.length;
-
-    if (this.length === 0) return;
-
-    this.head = new ListNode(array[0]);
-    this.tail = this.head;
-    let currentNode = this.head;
+    if (array.length === 0) return;
+    
+    this.val = array[0];
+    this.next = null;
+    let currentNode = this;
     for (let i = 1; i < array.length; i++) {
       let node = new ListNode(array[i]);
       currentNode.next = node;
       currentNode = node;
     }
-    this.tail = currentNode;
   }
 
   toString() {
-    if (this.length === 0) return "[ ]";
+    if (!this.next) return "[ ]";
     let out = "[";
-    let currentNode = this.head;
-    for (let i = 0; i < this.length - 1; i++) {
+    let currentNode = this;
+    while (currentNode.next) {
       out += `${currentNode.val}, `;
       currentNode = currentNode.next;
     }

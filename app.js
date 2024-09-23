@@ -152,4 +152,35 @@ export default class App {
       return this.recursiveReverseList(next, currentNode);
     }
   }
+
+  mergeTwoLists(list1, list2) {
+    let head = null;
+    let mergedList = null;
+
+    while (list1 || list2) {
+      if (!list2 || list1 && list1.val <= list2.val) {
+        if (head === null) {
+          let tempArray = [list1.val];
+          mergedList = new SinglyLinkedList(tempArray);
+          head = mergedList;
+        } else {
+          mergedList.next = list1;
+          mergedList = mergedList.next;
+        }
+        list1 = list1.next;
+      } else if (!list1 || list2 && list1.val > list2.val) {
+        if (head === null) {
+          let tempArray = [list2.val];
+          mergedList = new SinglyLinkedList(tempArray);
+          mergedList = list2;
+          head = mergedList;
+        } else {
+          mergedList.next = list2;
+          mergedList = mergedList.next;
+        }
+        list2 = list2.next;
+      }
+    }
+    return head;
+  }
 }

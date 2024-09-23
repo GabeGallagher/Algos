@@ -1,5 +1,6 @@
 import { expect } from "chai";
 import App from "../app.js";
+import SinglyLinkedList from "../linkedList.js";
 
 describe("Contains duplicate", () => {
   let app = new App();
@@ -159,3 +160,18 @@ describe("Length of longest substring", () => {
     expect(length).to.equal(3);
   });
 });
+
+describe('Merge two sorted linked lists', () => { 
+  let app = new App();
+
+  beforeEach(() => {
+    app = new App();
+  });
+
+  it("should return head of newly sorted linked lists", () => {
+    const list1 = new SinglyLinkedList([1,2,4]);
+    const list2 = new SinglyLinkedList([1,3,4]);
+    const mergedList = app.mergeTwoLists(list1, list2);
+    expect(mergedList.val).to.equal(1);
+  })
+ })

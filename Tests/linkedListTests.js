@@ -19,4 +19,4 @@ describe("To String", () => {
         const linkedListString = linkedList.toString();
         expect(linkedListString).to.equal("[ ]");
     });
-})
+});
