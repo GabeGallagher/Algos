@@ -25,10 +25,10 @@ class TreeNode {
 }
 
 export default class BinaryTree {
-  buildTree(array) {
-    let root = new TreeNode(array[0]);
+  constructor(array) {
+    this.root = new TreeNode(array[0]);
     for (let i = 1; i < array.length; i++) {
-      this.insertTreeNode(root, array, i);
+      this.insertTreeNode(this.root, array, i);
     }
   }
 
@@ -58,9 +58,9 @@ export default class BinaryTree {
   }
 
   buildBST(array) {
-    let root = new TreeNode(array[0]);
+    this.root = new TreeNode(array[0]);
     for (let i = 1; i < array.length; i++) {
-      this.insertBstNode(root, array, i);
+      this.insertBstNode(this.root, array, i);
     }
   }
 
@@ -74,4 +74,29 @@ export default class BinaryTree {
       else this.insertBstNode(currentNode.right, array, i);
     }
   }
+
+  toArray(currentNode, array) {
+    if (currentNode === undefined) {
+      array = new Array();
+      currentNode = this.root;
+      array.push(currentNode.val);
+    }
+    if (currentNode.left !== null) {
+      array.push(currentNode.left.val);
+    }
+    if (currentNode.right !== null) {
+      array.push(currentNode.right.val);
+    }
+    
+    if (currentNode.left !== null) {
+      this.toArray(currentNode.left, array);
+    }
+    if (currentNode.right !== null) {
+      this.toArray(currentNode.right, array);
+    }
+    return array;
+  }
 }
+
+let binTree = new BinaryTree([1, 2, 3, 4, 5, 6, 7]);
+console.log(binTree.toArray());

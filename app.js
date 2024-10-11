@@ -1,4 +1,5 @@
 import SinglyLinkedList from "./linkedList.js";
+import BinaryTree from "./tree.js";
 
 export default class App {
   containsDuplicate(nums) {
@@ -158,7 +159,7 @@ export default class App {
     let mergedList = null;
 
     while (list1 || list2) {
-      if (!list2 || list1 && list1.val <= list2.val) {
+      if (!list2 || (list1 && list1.val <= list2.val)) {
         if (head === null) {
           let tempArray = [list1.val];
           mergedList = new SinglyLinkedList(tempArray);
@@ -168,7 +169,7 @@ export default class App {
           mergedList = mergedList.next;
         }
         list1 = list1.next;
-      } else if (!list1 || list2 && list1.val > list2.val) {
+      } else if (!list1 || (list2 && list1.val > list2.val)) {
         if (head === null) {
           let tempArray = [list2.val];
           mergedList = new SinglyLinkedList(tempArray);

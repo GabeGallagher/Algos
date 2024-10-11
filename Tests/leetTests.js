@@ -1,6 +1,7 @@
 import { expect } from "chai";
 import App from "../app.js";
 import SinglyLinkedList from "../linkedList.js";
+import BinaryTree from "../tree.js";
 
 describe("Contains duplicate", () => {
   let app = new App();
@@ -161,7 +162,7 @@ describe("Length of longest substring", () => {
   });
 });
 
-describe('Merge two sorted linked lists', () => { 
+describe("Merge two sorted linked lists", () => {
   let app = new App();
 
   beforeEach(() => {
@@ -169,9 +170,24 @@ describe('Merge two sorted linked lists', () => {
   });
 
   it("should return head of newly sorted linked lists", () => {
-    const list1 = new SinglyLinkedList([1,2,4]);
-    const list2 = new SinglyLinkedList([1,3,4]);
+    const list1 = new SinglyLinkedList([1, 2, 4]);
+    const list2 = new SinglyLinkedList([1, 3, 4]);
     const mergedList = app.mergeTwoLists(list1, list2);
     expect(mergedList.val).to.equal(1);
-  })
- })
+  });
+});
+
+// describe("Binary Tree Tests", () => {
+//   let app = new App();
+
+//   beforeEach(() => {
+//     app = new App();
+//   });
+
+//   it("should invert tree when given valid binary tree", () => {
+//     const binTree = new BinaryTree([1, 2, 3, 4, 5, 6, 7]);
+//     const invertedTree = app.invertBinTree(binTree.root);
+//     const testArray = invertedTree.toArray();
+//     expect(testArray).to.equal([1, 3, 2, 7, 6, 5, 4]);
+//   });
+// });
