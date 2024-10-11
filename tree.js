@@ -96,7 +96,13 @@ export default class BinaryTree {
     }
     return array;
   }
-}
 
-let binTree = new BinaryTree([1, 2, 3, 4, 5, 6, 7]);
-console.log(binTree.toArray());
+  toString() {
+    let array = this.toArray();
+    let stringOut = "[";
+    for (let i = 0; i < array.length; i++) {
+      stringOut += `${array[i]}, `;
+    }
+    return `${stringOut.slice(0, -2)}]`;
+  }
+}
