@@ -1,5 +1,5 @@
 import SinglyLinkedList from "./linkedList.js";
-import BinaryTree from "./tree.js";
+import BinaryTree from "./binaryTree.js";
 
 export default class App {
   containsDuplicate(nums) {
@@ -183,5 +183,18 @@ export default class App {
       }
     }
     return head;
+  }
+
+  invertTree(root) {
+    if (root === null || root === undefined) return root;
+
+    let temp = root.left;
+    root.left = root.right;
+    root.right = temp;
+
+    this.invertTree(root.left);
+    this.invertTree(root.right);
+
+    return root;
   }
 }

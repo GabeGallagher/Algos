@@ -1,7 +1,7 @@
 import { expect } from "chai";
 import App from "../app.js";
 import SinglyLinkedList from "../linkedList.js";
-import BinaryTree from "../tree.js";
+import BinaryTree from "../binaryTree.js";
 
 describe("Contains duplicate", () => {
   let app = new App();
@@ -177,17 +177,23 @@ describe("Merge two sorted linked lists", () => {
   });
 });
 
-// describe("Binary Tree Tests", () => {
-//   let app = new App();
+describe("Binary Tree Tests", () => {
+  let app = new App();
 
-//   beforeEach(() => {
-//     app = new App();
-//   });
+  beforeEach(() => {
+    app = new App();
+  });
 
-//   it("should invert tree when given valid binary tree", () => {
-//     const binTree = new BinaryTree([1, 2, 3, 4, 5, 6, 7]);
-//     const invertedTree = app.invertBinTree(binTree.root);
-//     const testArray = invertedTree.toArray();
-//     expect(testArray).to.equal([1, 3, 2, 7, 6, 5, 4]);
-//   });
-// });
+  it("should invert tree when given valid binary tree", () => {
+    const binTree = new BinaryTree().buildBinaryTree([1, 2, 3, 4, 5, 6, 7]);
+    const invertedTree = app.invertTree(binTree);
+    const testArray = invertedTree.toArray();
+    expect(testArray).to.eql([1, 3, 2, 7, 6, 5, 4]);
+  });
+
+  it("should handle an empty tree", () => {
+    const binTree = new BinaryTree().buildBinaryTree([]);
+    const invertedTree = app.invertTree(binTree);
+    expect(invertedTree).to.eql(binTree);
+  });
+});
