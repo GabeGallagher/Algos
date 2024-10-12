@@ -197,4 +197,28 @@ export default class App {
 
     return root;
   }
+
+  maxDepth(root) {
+    if (root === undefined || root === null) return 0;
+    let left = this.maxDepth(root.left) + 1;
+    let right = this.maxDepth(root.right) + 1;
+
+    if (left > right) {
+      return left
+    }
+    else {
+      return right;
+    }
+  }
+
+  depthDigger(node, depth, depthArray) {
+    depthArray.push(depth);
+    if (node.left !== null)
+      this.depthDigger(node.left, depth + 1, depthArray);
+    if (node.right !== null)
+      this.depthDigger(node.right, depth + 1, depthArray);
+  }
 }
+let app = new App();
+let binTree = new BinaryTree().buildBinaryTree([1,2,3,null,null,4]);
+console.log(app.maxDepth(binTree))

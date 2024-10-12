@@ -184,16 +184,32 @@ describe("Binary Tree Tests", () => {
     app = new App();
   });
 
-  it("should invert tree when given valid binary tree", () => {
-    const binTree = new BinaryTree().buildBinaryTree([1, 2, 3, 4, 5, 6, 7]);
-    const invertedTree = app.invertTree(binTree);
-    const testArray = invertedTree.toArray();
-    expect(testArray).to.eql([1, 3, 2, 7, 6, 5, 4]);
+  describe("Inverted binary tree", () => {
+    it("should invert tree when given valid binary tree", () => {
+      const binTree = new BinaryTree().buildBinaryTree([1, 2, 3, 4, 5, 6, 7]);
+      const invertedTree = app.invertTree(binTree);
+      const testArray = invertedTree.toArray();
+      expect(testArray).to.eql([1, 3, 2, 7, 6, 5, 4]);
+    });
+
+    it("should handle an empty tree", () => {
+      const binTree = new BinaryTree().buildBinaryTree([]);
+      const invertedTree = app.invertTree(binTree);
+      expect(invertedTree).to.eql(binTree);
+    });
   });
 
-  it("should handle an empty tree", () => {
-    const binTree = new BinaryTree().buildBinaryTree([]);
-    const invertedTree = app.invertTree(binTree);
-    expect(invertedTree).to.eql(binTree);
-  });
+  describe('Max tree Depth', () => {
+    it('should calculate tree depth of a binary tree', () => {
+      const binTree = new BinaryTree().buildBinaryTree([1,2,3,null,null,4]);
+      const treeDepth = app.maxDepth(binTree);
+      expect(treeDepth).to.eql(3);
+    });
+
+    it('should handle an empty tree', () => {
+      const binTree = new BinaryTree().buildBinaryTree([]);
+      const treeDepth = app.maxDepth(binTree);
+      expect(treeDepth).to.eql(0);
+    });
+  })
 });

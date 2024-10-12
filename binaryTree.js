@@ -3,6 +3,7 @@ import Sort from "./sorting.js";
 
 export default class BinaryTree {
   buildBinaryTree(array) {
+    if (array.length === 0) return undefined;
     let root = new TreeNode(array[0]);
     for (let i = 1; i < array.length; i++) {
       this.insertTreeNode(root, array, i);
