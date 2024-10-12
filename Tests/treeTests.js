@@ -16,5 +16,17 @@ describe("Tree tests", () => {
       const binTreeString = binTree.toString();
       expect(binTreeString).to.eql("[1, 2, 3, 4, 5, 6, 7]");
     });
+
+    it("should correctly convert a heap into an array", () => {
+        const maxHeap = new BinaryTree().buildMaxHeap([5, 12, 64, 1, 37, 90, 91, 97]);
+        expect(maxHeap.toArray()).to.eql([97, 37, 91, 12, 5, 90, 64, 1]);
+    })
   });
+
+  describe("Binary Tree Tests", () => {
+    it("build Max Heap should build a valid max heap", () => {
+        const maxHeap = new BinaryTree().buildMaxHeap([5, 12, 64, 1, 37, 90, 91, 97]);
+        expect(maxHeap.toString()).to.eql("[97, 37, 91, 12, 5, 90, 64, 1]");
+    });
+  })
 });

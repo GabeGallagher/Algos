@@ -13,24 +13,21 @@ export default class TreeNode {
     return this.left !== null && this.right !== null;
   }
 
-  toArray(currentNode, array) {
-    if (currentNode === undefined) {
-      array = new Array();
-      currentNode = this;
-      array.push(currentNode.val);
-    }
-    if (currentNode.left !== null) {
-      array.push(currentNode.left.val);
-    }
-    if (currentNode.right !== null) {
-      array.push(currentNode.right.val);
-    }
+  toArray() {
+    const array = [];
+    const queue = [this];
 
-    if (currentNode.left !== null) {
-      this.toArray(currentNode.left, array);
-    }
-    if (currentNode.right !== null) {
-      this.toArray(currentNode.right, array);
+    while (queue.length > 0) {
+      const currentNode = queue.shift();
+      array.push(currentNode.val);
+
+      if (currentNode.left !== null) {
+        queue.push(currentNode.left);
+      }
+
+      if (currentNode.right !== null) {
+        queue.push(currentNode.right);
+      }
     }
     return array;
   }

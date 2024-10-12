@@ -21,13 +21,67 @@ export default class BinaryTree {
   }
 
   buildMaxHeap(array) {
-    let sorter = new Sort();
-    let tempArray = sorter.merge(array);
-    let maxArray = [];
-    for (let i = tempArray.length; i > 0; i--) {
-      maxArray.push(tempArray[i]);
+    let root = this.buildBinaryTree(array);
+    this.heapify(root);
+    return root;
+  }
+
+  heapify(treeNode) {
+    //node has 2 child nodes and
+    if (treeNode.left !== null && treeNode.right !== null) {
+      this.heapify(treeNode.left);
+      this.heapify(treeNode.right);
+      // both child nodes are larger than parent
+      if (
+        treeNode.left.val > treeNode.val &&
+        treeNode.right.val > treeNode.val
+      ) {
+        if (treeNode.left.val > treeNode.right.val) {
+            this.heapSwap(treeNode.left, treeNode);
+        //   let temp = treeNode.left.val;
+        //   treeNode.left.val = treeNode.val;
+        //   treeNode.val = temp;
+        } else {
+            this.heapSwap(treeNode.right, treeNode);
+        //   let temp = treeNode.right.val;
+        //   treeNode.right.val = treeNode.val;
+        //   treeNode.val = temp;
+        }
+      }
+      // one child node is larger than parent and sibling
+      else if (
+        treeNode.left.val > treeNode.val ||
+        treeNode.right.val > treeNode.val
+      ) {
+        if (treeNode.left.val > treeNode.right.val) {
+            this.heapSwap(treeNode.left, treeNode);
+        //   let temp = treeNode.left.val;
+        //   treeNode.left.val = treeNode.val;
+        //   treeNode.val = temp;
+        } else {
+            this.heapSwap(treeNode.right, treeNode);
+        //   let temp = treeNode.right.val;
+        //   treeNode.right.val = treeNode.val;
+        //   treeNode.val = temp;
+        }
+      }
     }
-    return this.buildBinaryTree(maxArray);
+    // node has 1 child node
+    else if (treeNode.left !== null) {
+      if (treeNode.left.val > treeNode.val) {
+        this.heapSwap(treeNode.left, treeNode);
+        // let temp = treeNode.val;
+        // treeNode.val = treeNode.left.val;
+        // treeNode.left.val = temp;
+      }
+    }
+  }
+
+  heapSwap(nodeGoingUp, nodeGoingDown) {
+    let temp = nodeGoingUp.val;
+    nodeGoingUp.val = nodeGoingDown.val;
+    nodeGoingDown.val = temp;
+    this.heapify(nodeGoingDown);
   }
 
   buildMinHeap(array) {
@@ -53,3 +107,6 @@ export default class BinaryTree {
     }
   }
 }
+
+// let maxHeap = new BinaryTree().buildMaxHeap([5, 12, 64, 1, 37, 90, 91, 97]);
+// console.log(maxHeap.toString());
