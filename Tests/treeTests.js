@@ -28,5 +28,10 @@ describe("Tree tests", () => {
         const maxHeap = new BinaryTree().buildMaxHeap([5, 12, 64, 1, 37, 90, 91, 97]);
         expect(maxHeap.toString()).to.eql("[97, 37, 91, 12, 5, 90, 64, 1]");
     });
-  })
+    
+    it("build Min Heap should build a valid min heap", () => {
+        const minxHeap = new BinaryTree().buildMinHeap([5, 12, 64, 1, 37, 90, 91, 97]);
+        expect(minxHeap.toString()).to.eql("[1, 5, 64, 12, 37, 90, 91, 97]");
+    });
+  });
 });

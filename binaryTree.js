@@ -22,14 +22,14 @@ export default class BinaryTree {
 
   buildMaxHeap(array) {
     let root = this.buildBinaryTree(array);
-    this.heapify(root);
+    this.maxHeapify(root);
     return root;
   }
 
-  heapify(treeNode) {
+  maxHeapify(treeNode) {
     if (treeNode.left !== null && treeNode.right !== null) {
-      this.heapify(treeNode.left);
-      this.heapify(treeNode.right);
+      this.maxHeapify(treeNode.left);
+      this.maxHeapify(treeNode.right);
       
       if (
         treeNode.left.val > treeNode.val ||
@@ -53,12 +53,34 @@ export default class BinaryTree {
     let temp = nodeGoingUp.val;
     nodeGoingUp.val = nodeGoingDown.val;
     nodeGoingDown.val = temp;
-    this.heapify(nodeGoingDown);
+    if (nodeGoingUp.val > nodeGoingDown.val) this.minHeapify(nodeGoingDown);
+    else this.maxHeapify(nodeGoingDown);
   }
 
   buildMinHeap(array) {
-    let sorter = new Sort();
-    return this.buildBinaryTree(sorter.merge(array));
+    let root = this.buildBinaryTree(array);
+    this.minHeapify(root);
+    return root;
+  }
+
+  minHeapify(treeNode) {
+    if (treeNode.left !== null && treeNode.right !== null) {
+      this.minHeapify(treeNode.left);
+      this.minHeapify(treeNode.right);
+
+      if (treeNode.left.val < treeNode.val || treeNode.right.val < treeNode.val) {
+        if (treeNode.left.val > treeNode.right.val) {
+            this.heapSwap(treeNode.right, treeNode);
+        } else {
+            this.heapSwap(treeNode.left, treeNode);
+        }
+      }
+      else if (treeNode.left !== null) {
+        if (treeNode.left.val < treeNode.val) {
+          this.heapSwap(treeNode.left, treeNode);
+        }
+      }
+    }
   }
 
   buildBST(array) {
@@ -79,6 +101,3 @@ export default class BinaryTree {
     }
   }
 }
-
-let maxHeap = new BinaryTree().buildMaxHeap([5, 12, 64, 1, 37, 90, 91, 97]);
-console.log(maxHeap.toString());
