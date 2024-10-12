@@ -204,10 +204,42 @@ export default class App {
     let right = this.maxDepth(root.right) + 1;
 
     if (left > right) {
-      return left
-    }
-    else {
+      return left;
+    } else {
       return right;
     }
+  }
+
+  maxDepthQueue(root) {
+    if (root === undefined || root === null) return 0;
+    let lvl = 0;
+    let queue = [root];
+
+    while (queue.length > 0) {
+      for (let i = 0; i < queue.length; i++) {
+        let node = queue.pop();
+        if (node.left !== null && node.left.val !== null) queue.push(node.left);
+        if (node.right !== null && node.right.val !== null)
+          queue.push(node.right);
+      }
+      lvl++;
+    }
+    return lvl;
+  }
+
+  maxDepthStack(root) {
+    let lvl = 0;
+    if (root === undefined || root === null) return lvl;
+    let stack = [root];
+    while (stack.length > 0) {
+      for (let i = 0; i < stack.length; i++) {
+        let node = stack.shift();
+        if (node.left !== null && node.left.val !== null) stack.push(node.left);
+        if (node.right !== null && node.left.val !== null)
+          stack.push(node.right);
+      }
+      lvl++;
+    }
+    return lvl;
   }
 }
