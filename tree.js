@@ -5,7 +5,7 @@ export default class TreeNode {
     this.right = null;
   }
 
-  isEmpty() {
+  hasNoChildren() {
     return this.left === null && this.right === null;
   }
 

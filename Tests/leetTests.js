@@ -212,4 +212,18 @@ describe("Binary Tree Tests", () => {
       expect(treeDepth).to.eql(0);
     });
   });
+
+  describe('Diameter of binary tree', () => {
+    it("should return correct diameter of binary tree", () => {
+      const binaryTree = new BinaryTree().buildBinaryTree([1,null,2,3,4,5]);
+      const treeDiameter = app.diameterOfBinaryTree(binaryTree);
+      expect(treeDiameter).to.eql(3);
+    });
+
+    it('should handle an empty tree', () => {
+      const binaryTree = new BinaryTree().buildBinaryTree([]);
+      const treeDiameter = app.diameterOfBinaryTree(binaryTree);
+      expect(treeDiameter ).to.eql(0);
+    });
+  });
 });

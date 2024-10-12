@@ -186,7 +186,7 @@ export default class App {
   }
 
   invertTree(root) {
-    if (root === undefined || root.val === null) return root;
+    if (root === undefined || root === null) return root;
     if (root.left !== null && root.left.val !== null)
       this.invertTree(root.left);
     if (root.right !== null && root.right.val !== null)
@@ -235,5 +235,26 @@ export default class App {
         stack.push(currentNode.right, dict[1] + 1);
     }
     return lvl;
+  }
+
+  diameterOfBinaryTree(root) {
+    let array = [0]
+    this.heightOfBinTree(root, array);
+    return array[0];
+  }
+
+  heightOfBinTree(root, array) {
+    if (root === undefined || root === null) return 0;
+    let heightLeft = 0;
+    let heightRight = 0;
+    if(root.left !== null)
+      heightLeft = this.heightOfBinTree(root.left, array) + 1;
+    if(root.right !== null)
+      heightRight = this.heightOfBinTree(root.right, array) + 1;
+    let localDiameter = heightLeft + heightRight;
+    if (localDiameter > array[0]) {
+      array[0] = localDiameter;
+    }
+    return heightLeft > heightRight ? heightLeft : heightRight;
   }
 }

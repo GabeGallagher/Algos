@@ -3,22 +3,31 @@ import Sort from "./sorting.js";
 
 export default class BinaryTree {
   buildBinaryTree(array) {
-    if (array.length === 0) return undefined;
+    if (array.length === 0) return null;
     let root = new TreeNode(array[0]);
+    let currentNode = root;
+    let queue = [];
     for (let i = 1; i < array.length; i++) {
-      this.insertTreeNode(root, array, i);
+      currentNode = this.insertTreeNode(currentNode, array, i, queue);
     }
     return root;
   }
 
-  insertTreeNode(currentNode, array, i) {
-    if (currentNode.isEmpty() === true) {
-      currentNode.left = new TreeNode(array[i]);
-    } else if (!currentNode.isEmpty() && currentNode.right === null) {
-      currentNode.right = new TreeNode(array[i]);
-    } else if (currentNode.left.isFull() && !currentNode.right.isFull()) {
-      this.insertTreeNode(currentNode.right, array, i);
-    } else this.insertTreeNode(currentNode.left, array, i);
+  insertTreeNode(currentNode, array, i, queue) {
+    if (currentNode === null) currentNode = queue.shift();
+    else if (i % 2 === 1) {
+      if (array[i] !== null) {
+        currentNode.left = new TreeNode(array[i]);
+        queue.push(currentNode.left);
+      }
+    } else {
+      if (array[i] !== null) {
+        currentNode.right = new TreeNode(array[i]);
+        queue.push(currentNode.right);
+      }
+      currentNode = queue.shift();
+    }
+    return currentNode;
   }
 
   buildMaxHeap(array) {
@@ -31,19 +40,18 @@ export default class BinaryTree {
     if (treeNode.left !== null && treeNode.right !== null) {
       this.maxHeapify(treeNode.left);
       this.maxHeapify(treeNode.right);
-      
+
       if (
         treeNode.left.val > treeNode.val ||
         treeNode.right.val > treeNode.val
       ) {
         if (treeNode.left.val > treeNode.right.val) {
-            this.heapSwap(treeNode.left, treeNode);
+          this.heapSwap(treeNode.left, treeNode);
         } else {
-            this.heapSwap(treeNode.right, treeNode);
+          this.heapSwap(treeNode.right, treeNode);
         }
       }
-    }
-    else if (treeNode.left !== null) {
+    } else if (treeNode.left !== null) {
       if (treeNode.left.val > treeNode.val) {
         this.heapSwap(treeNode.left, treeNode);
       }
@@ -69,14 +77,16 @@ export default class BinaryTree {
       this.minHeapify(treeNode.left);
       this.minHeapify(treeNode.right);
 
-      if (treeNode.left.val < treeNode.val || treeNode.right.val < treeNode.val) {
+      if (
+        treeNode.left.val < treeNode.val ||
+        treeNode.right.val < treeNode.val
+      ) {
         if (treeNode.left.val > treeNode.right.val) {
-            this.heapSwap(treeNode.right, treeNode);
+          this.heapSwap(treeNode.right, treeNode);
         } else {
-            this.heapSwap(treeNode.left, treeNode);
+          this.heapSwap(treeNode.left, treeNode);
         }
-      }
-      else if (treeNode.left !== null) {
+      } else if (treeNode.left !== null) {
         if (treeNode.left.val < treeNode.val) {
           this.heapSwap(treeNode.left, treeNode);
         }
