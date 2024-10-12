@@ -186,59 +186,53 @@ export default class App {
   }
 
   invertTree(root) {
-    if (root === null || root === undefined) return root;
-
+    if (root === undefined || root.val === null) return root;
+    if (root.left !== null && root.left.val !== null)
+      this.invertTree(root.left);
+    if (root.right !== null && root.right.val !== null)
+      this.invertTree(root.right);
     let temp = root.left;
     root.left = root.right;
     root.right = temp;
-
-    this.invertTree(root.left);
-    this.invertTree(root.right);
-
     return root;
   }
 
   maxDepth(root) {
     if (root === undefined || root === null) return 0;
-    let left = this.maxDepth(root.left) + 1;
-    let right = this.maxDepth(root.right) + 1;
-
-    if (left > right) {
-      return left;
-    } else {
-      return right;
-    }
+    let leftDepth = this.maxDepth(root.left) + 1;
+    let rightDepth = this.maxDepth(root.right) + 1;
+    return Math.max(leftDepth, rightDepth);
   }
 
-  maxDepthQueue(root) {
+  maxDepthIterativeBreadth(root) {
     if (root === undefined || root === null) return 0;
     let lvl = 0;
     let queue = [root];
-
     while (queue.length > 0) {
       for (let i = 0; i < queue.length; i++) {
-        let node = queue.pop();
-        if (node.left !== null && node.left.val !== null) queue.push(node.left);
-        if (node.right !== null && node.right.val !== null)
-          queue.push(node.right);
+        let currentNode = queue.shift();
+        if (currentNode.left !== undefined && currentNode.left !== null)
+          queue.push(currentNode.left);
+        if (currentNode.right !== undefined && currentNode.right !== null)
+          queue.push(currentNode.right);
       }
       lvl++;
     }
     return lvl;
   }
 
-  maxDepthStack(root) {
+  maxDepthIterativeDepth(root) {
+    if (root === undefined && root === null) return 0;
     let lvl = 0;
-    if (root === undefined || root === null) return lvl;
-    let stack = [root];
+    let stack = [[root, 1]];
     while (stack.length > 0) {
-      for (let i = 0; i < stack.length; i++) {
-        let node = stack.shift();
-        if (node.left !== null && node.left.val !== null) stack.push(node.left);
-        if (node.right !== null && node.left.val !== null)
-          stack.push(node.right);
-      }
-      lvl++;
+      let dict = stack.pop();
+      let currentNode = dict[0];
+      lvl = Math.max(lvl, dict[1]);
+      if (currentNode.left !== undefined && currentNode.left !== null)
+        stack.push(currentNode.left, dict[1] + 1);
+      if (currentNode.right !== undefined && currentNode.right !== null)
+        stack.push(currentNode.right, dict[1] + 1);
     }
     return lvl;
   }

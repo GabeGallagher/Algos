@@ -211,5 +211,5 @@ describe("Binary Tree Tests", () => {
       const treeDepth = app.maxDepth(binTree);
       expect(treeDepth).to.eql(0);
     });
-  })
+  });
 });
