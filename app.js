@@ -281,8 +281,36 @@ export default class App {
       heightRight = this.checkHeight(root.right) + 1;
     return heightLeft > heightRight ? heightLeft : heightRight;
   }
-}
 
-let app = new App();
-let binTree = new BinaryTree().buildBinaryTree([1,2,3,null,null,4]);
-console.log(app.isBalanced(binTree));
+  isSameTree(p, q) {
+    let pDefined = p === undefined || p === null;
+    let qDefined = q === undefined || q === null;
+    if (pDefined !== qDefined) return false;
+    else if (!pDefined && pDefined === qDefined) return true;
+    
+    let pLeft = null;
+    let pRight = null;
+    let qLeft = null;
+    let qRight = null;
+
+    if (p.left !== null) pLeft = p.left.val;
+    if (p.right !== null) pRight = p.right.val;
+    if (q.left !== null) qLeft = q.left.val;
+    if (q.right !== null) qRight = q.right.val;
+
+    let leftSame = true;
+    let rightSame = true;
+
+    if (p.left !== null && q.left !== null) {
+      leftSame = this.isSameTree(p.left, q.left);
+    }
+    if (p.right !== null && q.right !== null) {
+      rightSame = this.isSameTree(p.right, q.right);
+    }
+    let valsAreSame = false;
+    if (pLeft === qLeft && pRight === qRight) valsAreSame = true;
+    if (leftSame && rightSame && valsAreSame) return true;
+
+    return false;
+  }
+}

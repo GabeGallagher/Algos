@@ -260,4 +260,20 @@ describe("Binary Tree Tests", () => {
       expect(isBalanced).to.eql(false);
     });
   });
+
+  describe("Is same tree", () => {
+    it("Should be true if both trees share the same structure and node values", () => {
+      const binaryTreeOne = new BinaryTree().buildBinaryTree([1, 2, 3]);
+      const binaryTreeTwo = new BinaryTree().buildBinaryTree([1, 2, 3]);
+      const isSame = app.isSameTree(binaryTreeOne, binaryTreeTwo);
+      expect(isSame).to.eql(true);
+    });
+
+    it("Should work if one tree is empty", () => {
+      const binaryTreeOne = new BinaryTree().buildBinaryTree([]);
+      const binaryTreeTwo = new BinaryTree().buildBinaryTree([1, 2, 3]);
+      const isSame = app.isSameTree(binaryTreeOne, binaryTreeTwo);
+      expect(isSame).to.eql(false);
+    });
+  })
 });
