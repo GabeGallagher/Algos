@@ -1,5 +1,6 @@
 import SinglyLinkedList from "./linkedList.js";
 import BinaryTree from "./binaryTree.js";
+import TreeNode from "./tree.js";
 
 export default class App {
   containsDuplicate(nums) {
@@ -187,10 +188,8 @@ export default class App {
 
   invertTree(root) {
     if (root === undefined || root === null) return root;
-    if (root.left !== null && root.left.val !== null)
-      this.invertTree(root.left);
-    if (root.right !== null && root.right.val !== null)
-      this.invertTree(root.right);
+    root.left = this.invertTree(root.left);
+    root.right = this.invertTree(root.right);
     let temp = root.left;
     root.left = root.right;
     root.right = temp;
@@ -201,7 +200,7 @@ export default class App {
     if (root === undefined || root === null) return 0;
     let leftDepth = this.maxDepth(root.left) + 1;
     let rightDepth = this.maxDepth(root.right) + 1;
-    return Math.max(leftDepth, rightDepth);
+    return leftDepth > rightDepth ? leftDepth : rightDepth;
   }
 
   maxDepthIterativeBreadth(root) {
@@ -245,17 +244,19 @@ export default class App {
 
   heightOfBinTree(root, array) {
     if (root === undefined || root === null) return 0;
-    let heightLeft = 0;
-    let heightRight = 0;
+
+    let leftHeight = 0;
+
     if (root.left !== null)
-      heightLeft = this.heightOfBinTree(root.left, array) + 1;
+      leftHeight = this.heightOfBinTree(root.left, array) + 1;
+    let rightHeight = 0;
     if (root.right !== null)
-      heightRight = this.heightOfBinTree(root.right, array) + 1;
-    let localDiameter = heightLeft + heightRight;
-    if (localDiameter > array[0]) {
-      array[0] = localDiameter;
-    }
-    return heightLeft > heightRight ? heightLeft : heightRight;
+      rightHeight = this.heightOfBinTree(root.right, array) + 1;
+
+    let localDiameter = leftHeight + rightHeight;
+    array[0] = localDiameter > array[0] ? localDiameter : array[0];
+
+    return leftHeight > rightHeight ? leftHeight : rightHeight;
   }
 
   isBalanced(root) {
@@ -284,7 +285,11 @@ export default class App {
     if (pDefined !== qDefined) return false;
     else if (!pDefined && pDefined === qDefined) return true;
 
-    return p.val === q.val && this.isSameTree(p.left, q.left) && this.isSameTree(p.right, q.right);
+    return (
+      p.val === q.val &&
+      this.isSameTree(p.left, q.left) &&
+      this.isSameTree(p.right, q.right)
+    );
   }
 
   isSubtree(root, subRoot) {
@@ -296,16 +301,46 @@ export default class App {
 
     if (root.val === subRoot.val && this.isSameTree(root, subRoot)) {
       return true;
-    }
-    else {
+    } else {
       if (this.isSubtree(root.left, subRoot)) return true;
       if (this.isSubtree(root.right, subRoot)) return true;
       return false;
     }
   }
+
+  lowestCommonAncestor(root, p, q) {
+    if (root === undefined || root === null) return root;
+    let ancestorArray = [null];
+    this.isRelative(root, p, q, ancestorArray, [false, false]);
+    if (ancestorArray[0] === null) return root;
+    else return ancestorArray[0];
+  }
+
+  isRelative(root, p, q, ancestorArray) {
+    if (root === undefined || root === null)
+      return false;
+
+    let isP = root.val === p.val;
+    let isQ = root.val === q.val;
+    let isParent = isP || isQ;
+
+    let isLeftRelative = this.isRelative(root.left, p, q, ancestorArray);
+    let isRightRelative = this.isRelative(root.right, p, q, ancestorArray);
+    if (isParent && (isLeftRelative || isRightRelative)) {
+      if (ancestorArray[0] === null)
+        ancestorArray[0] = root;
+    }
+    if (isLeftRelative && isRightRelative && ancestorArray[0] === null)
+      ancestorArray[0] = root;
+    
+    if (isP || isQ) return true;
+    else if (isLeftRelative || isRightRelative) return true;
+    else return false;
+  }
 }
 
 let app = new App();
-let root = new BinaryTree().buildBinaryTree([1, 1]);
-let subRoot = new BinaryTree().buildBinaryTree([1]);
-console.log(app.isSubtree(root, subRoot));
+let root = new BinaryTree().buildBinaryTree([6,2,8,0,4,7,9,null,null,3,5]);
+let rawNodeOne = new TreeNode(2);
+let rawNodeTwo = new TreeNode(4);
+console.log(app.lowestCommonAncestor(root, rawNodeOne, rawNodeTwo));
