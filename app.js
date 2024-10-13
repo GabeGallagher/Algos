@@ -238,7 +238,7 @@ export default class App {
   }
 
   diameterOfBinaryTree(root) {
-    let array = [0]
+    let array = [0];
     this.heightOfBinTree(root, array);
     return array[0];
   }
@@ -247,9 +247,9 @@ export default class App {
     if (root === undefined || root === null) return 0;
     let heightLeft = 0;
     let heightRight = 0;
-    if(root.left !== null)
+    if (root.left !== null)
       heightLeft = this.heightOfBinTree(root.left, array) + 1;
-    if(root.right !== null)
+    if (root.right !== null)
       heightRight = this.heightOfBinTree(root.right, array) + 1;
     let localDiameter = heightLeft + heightRight;
     if (localDiameter > array[0]) {
@@ -262,10 +262,8 @@ export default class App {
     if (root === undefined || root === null) return true;
     let heightLeft = 0;
     let heightRight = 0;
-    if (root.left !== null)
-      heightLeft = this.checkHeight(root.left) + 1;
-    if (root.right !== null)
-      heightRight = this.checkHeight(root.right) + 1;
+    if (root.left !== null) heightLeft = this.checkHeight(root.left) + 1;
+    if (root.right !== null) heightRight = this.checkHeight(root.right) + 1;
     if (heightLeft - heightRight > 1 || heightLeft - heightRight < -1)
       return false;
     return true;
@@ -275,41 +273,21 @@ export default class App {
     if (root === undefined || root === null) return 0;
     let heightLeft = 0;
     let heightRight = 0;
-    if (root.left !== null)
-      heightLeft = this.checkHeight(root.left) + 1;
-    if (root.right !== null)
-      heightRight = this.checkHeight(root.right) + 1;
+    if (root.left !== null) heightLeft = this.checkHeight(root.left) + 1;
+    if (root.right !== null) heightRight = this.checkHeight(root.right) + 1;
     return heightLeft > heightRight ? heightLeft : heightRight;
   }
 
   isSameTree(p, q) {
-    let pDefined = p === undefined || p === null;
-    let qDefined = q === undefined || q === null;
+    let pDefined = p !== undefined && p !== null;
+    let qDefined = q !== undefined && q !== null;
     if (pDefined !== qDefined) return false;
     else if (!pDefined && pDefined === qDefined) return true;
     
-    let pLeft = null;
-    let pRight = null;
-    let qLeft = null;
-    let qRight = null;
+    let leftIsSame = this.isSameTree(p.left, q.left)
+    let rightIsSame = this.isSameTree(p.right, q.right);
 
-    if (p.left !== null) pLeft = p.left.val;
-    if (p.right !== null) pRight = p.right.val;
-    if (q.left !== null) qLeft = q.left.val;
-    if (q.right !== null) qRight = q.right.val;
-
-    let leftSame = true;
-    let rightSame = true;
-
-    if (p.left !== null && q.left !== null) {
-      leftSame = this.isSameTree(p.left, q.left);
-    }
-    if (p.right !== null && q.right !== null) {
-      rightSame = this.isSameTree(p.right, q.right);
-    }
-    let valsAreSame = false;
-    if (pLeft === qLeft && pRight === qRight) valsAreSame = true;
-    if (leftSame && rightSame && valsAreSame) return true;
+    if (p.val == q.val && leftIsSame && rightIsSame) return true;
 
     return false;
   }

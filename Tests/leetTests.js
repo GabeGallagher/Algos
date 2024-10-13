@@ -275,5 +275,19 @@ describe("Binary Tree Tests", () => {
       const isSame = app.isSameTree(binaryTreeOne, binaryTreeTwo);
       expect(isSame).to.eql(false);
     });
+
+    it("Should work with properly disimilar trees", () => {
+      const binaryTreeOne = new BinaryTree().buildBinaryTree([4, 7]);
+      const binaryTreeTwo = new BinaryTree().buildBinaryTree([4, null, 7]);
+      const isSame = app.isSameTree(binaryTreeOne, binaryTreeTwo);
+      expect(isSame).to.eql(false);
+    });
+
+    it("Should work with an empty tree and a tree with value of 0", () => {
+      const binaryTreeOne = new BinaryTree().buildBinaryTree([]);
+      const binaryTreeTwo = new BinaryTree().buildBinaryTree([0]);
+      const isSame = app.isSameTree(binaryTreeOne, binaryTreeTwo);
+      expect(isSame).to.eql(false);
+    });
   })
 });
