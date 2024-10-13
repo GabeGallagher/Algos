@@ -257,4 +257,32 @@ export default class App {
     }
     return heightLeft > heightRight ? heightLeft : heightRight;
   }
+
+  isBalanced(root) {
+    if (root === undefined || root === null) return true;
+    let heightLeft = 0;
+    let heightRight = 0;
+    if (root.left !== null)
+      heightLeft = this.checkHeight(root.left) + 1;
+    if (root.right !== null)
+      heightRight = this.checkHeight(root.right) + 1;
+    if (heightLeft - heightRight > 1 || heightLeft - heightRight < -1)
+      return false;
+    return true;
+  }
+
+  checkHeight(root) {
+    if (root === undefined || root === null) return 0;
+    let heightLeft = 0;
+    let heightRight = 0;
+    if (root.left !== null)
+      heightLeft = this.checkHeight(root.left) + 1;
+    if (root.right !== null)
+      heightRight = this.checkHeight(root.right) + 1;
+    return heightLeft > heightRight ? heightLeft : heightRight;
+  }
 }
+
+let app = new App();
+let binTree = new BinaryTree().buildBinaryTree([1,2,3,null,null,4]);
+console.log(app.isBalanced(binTree));

@@ -199,31 +199,65 @@ describe("Binary Tree Tests", () => {
     });
   });
 
-  describe('Max tree Depth', () => {
-    it('should calculate tree depth of a binary tree', () => {
-      const binTree = new BinaryTree().buildBinaryTree([1,2,3,null,null,4]);
+  describe("Max tree Depth", () => {
+    it("should calculate tree depth of a binary tree", () => {
+      const binTree = new BinaryTree().buildBinaryTree([
+        1,
+        2,
+        3,
+        null,
+        null,
+        4,
+      ]);
       const treeDepth = app.maxDepth(binTree);
       expect(treeDepth).to.eql(3);
     });
 
-    it('should handle an empty tree', () => {
+    it("should handle an empty tree", () => {
       const binTree = new BinaryTree().buildBinaryTree([]);
       const treeDepth = app.maxDepth(binTree);
       expect(treeDepth).to.eql(0);
     });
   });
 
-  describe('Diameter of binary tree', () => {
+  describe("Diameter of binary tree", () => {
     it("should return correct diameter of binary tree", () => {
-      const binaryTree = new BinaryTree().buildBinaryTree([1,null,2,3,4,5]);
+      const binaryTree = new BinaryTree().buildBinaryTree([
+        1,
+        null,
+        2,
+        3,
+        4,
+        5,
+      ]);
       const treeDiameter = app.diameterOfBinaryTree(binaryTree);
       expect(treeDiameter).to.eql(3);
     });
 
-    it('should handle an empty tree', () => {
+    it("should handle an empty tree", () => {
       const binaryTree = new BinaryTree().buildBinaryTree([]);
       const treeDiameter = app.diameterOfBinaryTree(binaryTree);
-      expect(treeDiameter ).to.eql(0);
+      expect(treeDiameter).to.eql(0);
+    });
+  });
+
+  describe("Is binary tree balanced", () => {
+    it("should be balanced if left and right height of node have less than a difference of one", () => {
+      const binaryTree = new BinaryTree().buildBinaryTree([1,2,3,null,null,4]);
+      const isBalanced = app.isBalanced(binaryTree);
+      expect(isBalanced).to.eql(true);
+    });
+    
+    it("should be balanced if tree is empty", () => {
+      const binaryTree = new BinaryTree().buildBinaryTree([]);
+      const isBalanced = app.isBalanced(binaryTree);
+      expect(isBalanced).to.eql(true);
+    });
+    
+    it("should not be balanced if left and right height of node have more than a difference of one", () => {
+      const binaryTree = new BinaryTree().buildBinaryTree([1,2,3,null,null,4,null,5]);
+      const isBalanced = app.isBalanced(binaryTree);
+      expect(isBalanced).to.eql(false);
     });
   });
 });
