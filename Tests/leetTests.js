@@ -243,19 +243,35 @@ describe("Binary Tree Tests", () => {
 
   describe("Is binary tree balanced", () => {
     it("should be balanced if left and right height of node have less than a difference of one", () => {
-      const binaryTree = new BinaryTree().buildBinaryTree([1,2,3,null,null,4]);
+      const binaryTree = new BinaryTree().buildBinaryTree([
+        1,
+        2,
+        3,
+        null,
+        null,
+        4,
+      ]);
       const isBalanced = app.isBalanced(binaryTree);
       expect(isBalanced).to.eql(true);
     });
-    
+
     it("should be balanced if tree is empty", () => {
       const binaryTree = new BinaryTree().buildBinaryTree([]);
       const isBalanced = app.isBalanced(binaryTree);
       expect(isBalanced).to.eql(true);
     });
-    
+
     it("should not be balanced if left and right height of node have more than a difference of one", () => {
-      const binaryTree = new BinaryTree().buildBinaryTree([1,2,3,null,null,4,null,5]);
+      const binaryTree = new BinaryTree().buildBinaryTree([
+        1,
+        2,
+        3,
+        null,
+        null,
+        4,
+        null,
+        5,
+      ]);
       const isBalanced = app.isBalanced(binaryTree);
       expect(isBalanced).to.eql(false);
     });
@@ -289,5 +305,44 @@ describe("Binary Tree Tests", () => {
       const isSame = app.isSameTree(binaryTreeOne, binaryTreeTwo);
       expect(isSame).to.eql(false);
     });
-  })
+  });
+
+  describe("Is subtree", () => {
+    it("should return true if first tree contains second as a subtree", () => {
+      const binaryTreeOne = new BinaryTree().buildBinaryTree([1, 2, 3, 4, 5]);
+      const binaryTreeTwo = new BinaryTree().buildBinaryTree([2, 4, 5]);
+      const isSubTree = app.isSubtree(binaryTreeOne, binaryTreeTwo);
+      expect(isSubTree).to.eql(true);
+    });
+
+    it("Should work if one tree is empty", () => {
+      const binaryTreeOne = new BinaryTree().buildBinaryTree([]);
+      const binaryTreeTwo = new BinaryTree().buildBinaryTree([1, 2, 3]);
+      const isSubTree = app.isSubtree(binaryTreeOne, binaryTreeTwo);
+      expect(isSubTree).to.eql(false);
+    });
+
+    it("Should work with properly disimilar trees", () => {
+      const binaryTreeOne = new BinaryTree().buildBinaryTree([
+        1,
+        2,
+        3,
+        4,
+        5,
+        null,
+        null,
+        6,
+      ]);
+      const binaryTreeTwo = new BinaryTree().buildBinaryTree([4, null, 7]);
+      const isSubTree = app.isSubtree(binaryTreeOne, binaryTreeTwo);
+      expect(isSubTree).to.eql(false);
+    });
+
+    it("Should work with an empty tree and a tree with value of 0", () => {
+      const binaryTreeOne = new BinaryTree().buildBinaryTree([]);
+      const binaryTreeTwo = new BinaryTree().buildBinaryTree([0]);
+      const isSubTree = app.isSubtree(binaryTreeOne, binaryTreeTwo);
+      expect(isSubTree).to.eql(false);
+    });
+  });
 });

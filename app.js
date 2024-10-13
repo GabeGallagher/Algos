@@ -283,12 +283,29 @@ export default class App {
     let qDefined = q !== undefined && q !== null;
     if (pDefined !== qDefined) return false;
     else if (!pDefined && pDefined === qDefined) return true;
-    
-    let leftIsSame = this.isSameTree(p.left, q.left)
-    let rightIsSame = this.isSameTree(p.right, q.right);
 
-    if (p.val == q.val && leftIsSame && rightIsSame) return true;
+    return p.val === q.val && this.isSameTree(p.left, q.left) && this.isSameTree(p.right, q.right);
+  }
 
-    return false;
+  isSubtree(root, subRoot) {
+    let rootIsDefined = root !== undefined && root !== null;
+    let subRootIsDefined = subRoot !== undefined && subRoot !== null;
+
+    if (rootIsDefined !== subRootIsDefined) return false;
+    else if (!rootIsDefined && rootIsDefined === subRootIsDefined) return true;
+
+    if (root.val === subRoot.val && this.isSameTree(root, subRoot)) {
+      return true;
+    }
+    else {
+      if (this.isSubtree(root.left, subRoot)) return true;
+      if (this.isSubtree(root.right, subRoot)) return true;
+      return false;
+    }
   }
 }
+
+let app = new App();
+let root = new BinaryTree().buildBinaryTree([1, 1]);
+let subRoot = new BinaryTree().buildBinaryTree([1]);
+console.log(app.isSubtree(root, subRoot));
