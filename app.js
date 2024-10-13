@@ -337,10 +337,31 @@ export default class App {
     else if (isLeftRelative || isRightRelative) return true;
     else return false;
   }
-}
 
-let app = new App();
-let root = new BinaryTree().buildBinaryTree([6,2,8,0,4,7,9,null,null,3,5]);
-let rawNodeOne = new TreeNode(2);
-let rawNodeTwo = new TreeNode(4);
-console.log(app.lowestCommonAncestor(root, rawNodeOne, rawNodeTwo));
+  levelOrder(root) {
+    let array = []
+    this.levelArray(root, 0, array);
+    return array;
+  }
+
+  levelArray(root, level, array) {
+    if (root === undefined || root === null) return;
+    if (array[level] === undefined) array[level] = [];
+    array[level].push(root.val);
+    this.levelArray(root.left, level + 1, array);
+    this.levelArray(root.right, level + 1, array);
+  }
+
+  rightSideView(root) {
+    let array = [];
+    this.traverse(root, array, 0)
+    return array
+  }
+
+  traverse(root, array, level) {
+    if (root === undefined || root === null) return;
+    array[level] = root.val;
+    this.traverse(root.left, array, level + 1);
+    this.traverse(root.right, array, level + 1);
+  }
+}
