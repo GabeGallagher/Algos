@@ -317,8 +317,7 @@ export default class App {
   }
 
   isRelative(root, p, q, ancestorArray) {
-    if (root === undefined || root === null)
-      return false;
+    if (root === undefined || root === null) return false;
 
     let isP = root.val === p.val;
     let isQ = root.val === q.val;
@@ -327,19 +326,18 @@ export default class App {
     let isLeftRelative = this.isRelative(root.left, p, q, ancestorArray);
     let isRightRelative = this.isRelative(root.right, p, q, ancestorArray);
     if (isParent && (isLeftRelative || isRightRelative)) {
-      if (ancestorArray[0] === null)
-        ancestorArray[0] = root;
+      if (ancestorArray[0] === null) ancestorArray[0] = root;
     }
     if (isLeftRelative && isRightRelative && ancestorArray[0] === null)
       ancestorArray[0] = root;
-    
+
     if (isP || isQ) return true;
     else if (isLeftRelative || isRightRelative) return true;
     else return false;
   }
 
   levelOrder(root) {
-    let array = []
+    let array = [];
     this.levelArray(root, 0, array);
     return array;
   }
@@ -354,8 +352,8 @@ export default class App {
 
   rightSideView(root) {
     let array = [];
-    this.traverse(root, array, 0)
-    return array
+    this.traverse(root, array, 0);
+    return array;
   }
 
   traverse(root, array, level) {
@@ -363,5 +361,100 @@ export default class App {
     array[level] = root.val;
     this.traverse(root.left, array, level + 1);
     this.traverse(root.right, array, level + 1);
+  }
+
+  goodNodes(root) {
+    if (root === undefined || root === null) return;
+    let array = [];
+    this.isGood(root, array, []);
+    return array.length;
+  }
+
+  isGood(root, goodNodeArray, routeArray) {
+    if (root === undefined || root === null) return;
+
+    let isGoodBool = true;
+    let updateRouteArray = [];
+
+    for (let i = 0; i < routeArray.length; i++) {
+      updateRouteArray.push(routeArray[i]);
+      if (routeArray[i] > root.val) {
+        isGoodBool = false;
+      }
+    }
+
+    updateRouteArray.push(root.val);
+
+    if (isGoodBool) {
+      goodNodeArray.push(root.val);
+      this.isGood(root.left, goodNodeArray, updateRouteArray);
+      this.isGood(root.right, goodNodeArray, updateRouteArray);
+    } else {
+      this.isGood(root.left, goodNodeArray, updateRouteArray);
+      this.isGood(root.right, goodNodeArray, updateRouteArray);
+    }
+  }
+
+  isValidBST(root) {
+    if (root === undefined || root === null) return true;
+    return this.isValidBSTStruct(root);
+  }
+
+  isValidBSTStruct(root, leftBound = null, rightBound = null) {
+    if (root === undefined || root === null) return true;
+    let leftValid = leftBound === null || root.val > leftBound;
+    if (!leftValid) return false;
+    let rightValid = rightBound === null || root.val < rightBound;
+    if(!rightValid) return false;
+
+    let leftCheck = this.isValidBSTStruct(root.left, null, root.val);
+    let rightCheck = this.isValidBSTStruct(root.right, root.val, null);
+
+    return leftCheck && rightCheck;
+  }
+
+  kthSmallest(root, k) {
+    let array = [];
+    this.buildArray(root, array);
+    array.sort((a, b) => a - b);
+    return array[k - 1];
+  }
+
+  buildArray(root, array) {
+    if (root === undefined || root === null) return;
+    this.buildArray(root.left, array);
+    this.buildArray(root.right, array);
+    array.push(root.val);
+  }
+
+  minRemoveToMakeValid(s) {
+    let sArray = [];
+    let count = 0;
+
+    for (let i = 0; i < s.length; i++) {
+      if(s[i] === "(") {
+        sArray.push(s[i]);
+        count++;
+      }
+      else if (s[i] === ")" && count > 0) {
+        sArray.push(s[i]);
+        count--;
+      }
+      else if (s[i] !== ")") {
+        sArray.push(s[i]);
+      }
+    }
+    let outArray = [];
+    for (let i = sArray.length - 1; i >= 0; i--) {
+      if (sArray[i] === "(" && count > 0) {
+        count--;
+      }
+      else {
+        outArray.push(sArray[i]);
+      }
+    }
+    let output = '';
+    for (let i = outArray.length - 1; i >= 0; i--) output += outArray[i];
+    return output
   }
 }
